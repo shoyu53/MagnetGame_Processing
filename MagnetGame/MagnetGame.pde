@@ -3,7 +3,9 @@ public float magY=70;
 public float poleX=50;
 public float poleY=100;
 public float magMoveX;
-public float magMoveY;   
+public float magMoveY;
+final float playerR=40;
+final float poleR=45;
 boolean move=false;
 int down=4;
 int right=4;
@@ -15,14 +17,13 @@ public float[][] pY=new float[down][right];
 void setup() {
   size(750, 800);
   frameRate(60);
+  noStroke();
 }
 
 void draw() {
   background(255);
-  //プレイヤー
-  fill(255, 0, 0);
-  ellipse(magX, magY, 50, 50);//磁石上
 
+  //障害物設定
   fill(0, 0, 255);
   for (int i=0; i<right; i++) {
     for (int j=0; j<down; j++) {
@@ -41,6 +42,10 @@ void draw() {
   }
   poleX=50;
   poleY=100;
+  
+  //プレイヤー設定
+  fill(255, 0, 0);
+  ellipse(magX, magY, playerR, playerR);
 
   //クリックした地点に磁石があったらくっつく
   for (int k=0; k<right; k++) {
@@ -94,6 +99,6 @@ class Pole {
 
 
   void PoleDraw() {
-    rect(pX, pY, 45, 45);
+    rect(pX, pY, poleR, poleR);
   }
 }
