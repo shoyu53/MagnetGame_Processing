@@ -14,6 +14,7 @@ public Pole[][] pole=new Pole[down][right]; //N極S極判定奇数の時は赤�
 public float[][] pX=new float[down][right];
 public float[][] pY=new float[down][right];
 public float magDis=150;
+public float rot;
 
 void setup() {
   size(1200, 800);
@@ -45,20 +46,23 @@ void draw() {
 
   //プレイヤー設定
   //回転
-  translate(magX+magW/2,magY+magH);
-  rotate(PI/10);
-  //磁石上部分描画
+  translate(magX,magY);
+  rot+=PI/100;
+  rotate(rot);
+  //磁石上
   fill(255, 0, 0);
-  rect(magX, magY,magW,magH);
-  //磁石した部分描画
-  fill(0, 0, 255);
-  rect(magX, magY+50,magW,magH);
+  rect(-magW/2,-magH,magW,magH);
+  //磁石下
+  fill(0,0,255);
+  rect(-magW/2,0,magW,magH);
 
   //プレイヤーを動かす
+  /*
   moveSet();
   if (move) {
     move();
   }
+  */
 }
 
 void moveSet() {
