@@ -1,5 +1,7 @@
-public float magX=800;
-public float magY=800;
+public float magX=100;
+public float magY=100;
+public float magW=25;
+public float magH=50;
 public float poleX=50;
 public float poleY=100;
 public float magMoveX;
@@ -12,9 +14,6 @@ public Pole[][] pole=new Pole[down][right]; //N極S極判定奇数の時は赤�
 public float[][] pX=new float[down][right];
 public float[][] pY=new float[down][right];
 public float magDis=150;
-public float magTheta=0;
-public float magRad=0;
-public float magR=20;
 
 void setup() {
   size(1200, 800);
@@ -46,23 +45,20 @@ void draw() {
 
   //プレイヤー設定
   //回転
-  magTheta++;
-  magRad=radians(magTheta);
-  magX=magX*cos(magRad)-magY*sin(magRad);
-  magY=magX*sin(magRad)+magY*cos(magRad);
-  
-  //磁石上部分
+  translate(magX+magW/2,magY+magH);
+  rotate(PI/10);
+  //磁石上部分描画
   fill(255, 0, 0);
-  quad(magX, magY, magX+25, magY, magX+25, magY+50, magX, magY+50);
-  //磁石した部分
+  rect(magX, magY,magW,magH);
+  //磁石した部分描画
   fill(0, 0, 255);
-  quad(magX, magY+50, magX+25, magY+50, magX+25, magY+100, magX, magY+100);
+  rect(magX, magY+50,magW,magH);
 
   //プレイヤーを動かす
-  /*moveSet();
+  moveSet();
   if (move) {
     move();
-  }*/
+  }
 }
 
 void moveSet() {
