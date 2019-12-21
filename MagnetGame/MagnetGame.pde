@@ -1,24 +1,24 @@
-public float magX=0;
-public float magY=0;
+public float magX=800;
+public float magY=800;
 public float poleX=50;
 public float poleY=100;
 public float magMoveX;
 public float magMoveY;
-final float playerR=40;
-final float poleR=45;
+final float poleD=50;
 boolean move=false;
 final int down=3;
-final int right=4;
+final int right=5;
 public Pole[][] pole=new Pole[down][right]; //N極S極判定奇数の時は赤、偶数の時は青
 public float[][] pX=new float[down][right];
 public float[][] pY=new float[down][right];
 public float magDis=150;
-
+public float magTheta=0;
+public float magRad=0;
+public float magR=20;
 
 void setup() {
-  size(750, 800);
+  size(1200, 800);
   frameRate(60);
-  noStroke();
 }
 
 void draw() {
@@ -45,8 +45,27 @@ void draw() {
   poleY=100;
 
   //プレイヤー設定
+  //回転
+  magTheta++;
+  magRad=radians(magTheta);
+  magX=magX*cos(magRad)-magY*sin(magRad);
+  magY=magX*sin(magRad)+magY*cos(magRad);
+  
+  //磁石上部分
   fill(255, 0, 0);
-  ellipse(magX, magY, playerR, playerR);
+  quad(magX, magY, magX+25, magY, magX+25, magY+50, magX, magY+50);
+  //磁石した部分
+  fill(0, 0, 255);
+  quad(magX, magY+50, magX+25, magY+50, magX+25, magY+100, magX, magY+100);
+
+  //プレイヤーを動かす
+  /*moveSet();
+  if (move) {
+    move();
+  }*/
+}
+
+void moveSet() {
 
   //クリックした地点に磁石があったらくっつく
   for (int k=0; k<down; k++) {
@@ -58,9 +77,6 @@ void draw() {
         move=true;
       }
     }
-  }
-  if (move) {
-    move();
   }
 }
 
@@ -100,6 +116,6 @@ class Pole {
 
 
   void PoleDraw() {
-    rect(pX, pY, poleR, poleR);
+    ellipse(pX, pY, poleD, poleD);
   }
 }
