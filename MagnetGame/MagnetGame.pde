@@ -47,10 +47,18 @@ void draw() {
   poleY=100;
 
   //プレイヤー設定
+  //移動地点まで線を引く
+  stroke(0,255,0,50);
+  strokeWeight(8);
+  line(magX,magY,magMoveX,magMoveY);
+  strokeWeight(1.5);
+  stroke(0,0,0);
   //回転
   translate(magX, magY);
+  if(move){
   rot+=PI/100;
   rotate(rot);
+  }
   //磁石上
   fill(255, 0, 0);
   rect(-magW/2, -magH, magW, magH);
