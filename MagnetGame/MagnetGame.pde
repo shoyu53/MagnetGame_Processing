@@ -23,22 +23,15 @@ void setup() {
   size(1200, 800);
   frameRate(60);
   //プレイヤーは赤青の磁石
-  player=new Player(magX, magY, magMoveX, magMoveY);
-}
-
-void draw() {
-  background(255);
-
+  player=new Player(magX, magY);
   //障害物設定(ポール)
   for (int i=0; i<down; i++) {
     for (int j=0; j<right; j++) {
       fill(0, 0, 255);
       pole[i][j]=new Pole(poleX, poleY);
-      pole[i][j].PoleDraw();
       pX[i][j]=pole[i][j].getX();
       pY[i][j]=pole[i][j].getY();
       poleX+=250;
-
       /*デバッグ*/
       //print(i, j, "X="+(pX[i][j]=pole[i][j].getX())+" Y=");
       //println(pY[i][j]=pole[i][j].getY());
@@ -48,7 +41,18 @@ void draw() {
   }
   poleX=50;
   poleY=100;
+}
 
+void draw() {
+  background(255);
+
+  //障害物描画
+  for (int i=0; i<down; i++) {
+    for (int j=0; j<right; j++) {
+      pole[i][j].PoleDraw();
+    }
+  }
+  //プレイヤー描画
   player.magDraw();
 }
 
@@ -61,13 +65,13 @@ class Player {
   private float magMoveY;
   //private float magCount;
 
-  Player(float magX, float magY, float magMoveX, float magMoveY) {
+  Player(float magX, float magY) {
     this.magX=magX;
     this.magY=magY;
-    this.magMoveX=magMoveX;
-    this.magMoveY=magMoveY;
+    this.magMoveX=magX;
+    this.magMoveY=magY;
   }
-  
+
   //ここで磁石の動きを司っているよ！
   void magDraw() {
 
@@ -157,6 +161,7 @@ class Pole {
 
 
   void PoleDraw() {
+    fill(0, 0, 255);
     ellipse(pX, pY, poleD, poleD);
   }
 }
