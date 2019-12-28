@@ -50,7 +50,7 @@ class Player {
       magCount++;
       for (int k=0; k<down; k++) {
         for (int l=0; l<right; l++) {
-          if ((sqrt(((mouseX-pX[k][l])*(mouseX-pX[k][l]))+((mouseY-pY[k][l])*(mouseY-pY[k][l]))))<=poleD) { 
+          if (dis(mouseX,mouseY,pX[k][l],pY[k][l])<=poleD) { 
             //移動地点登録
             magMoveX=pX[k][l];
             magMoveY=pY[k][l];
@@ -60,6 +60,13 @@ class Player {
       }
     }
   }
+  
+  //二点間の距離を計算
+ float dis(float aX,float aY,float bX,float bY){
+    float distance=sqrt((aX-bX)*(aX-bX)+(aY-bY)*(aY-bY));
+    return distance;
+  }
+  
   //磁石を動かす
   void move() {
     if (magX<magMoveX) {

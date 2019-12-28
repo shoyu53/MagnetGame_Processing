@@ -10,7 +10,7 @@ final float poleD=50;
 boolean move=false;
 final int down=3;
 final int right=5;
-public Pole[][] pole=new Pole[down][right]; //N極S極判定奇数の時は赤、偶数の時は青
+public Pole[][] pole=new Pole[down][right]; //SN極判定、奇数の時は赤、偶数の時は青
 public float[][] pX=new float[down][right];
 public float[][] pY=new float[down][right];
 public Player player;
@@ -52,6 +52,6 @@ void draw() {
       pole[i][j].PoleDraw();
     }
   }
-  //プレイヤー描画
+  //磁石描画
   player.magDraw();
 }
