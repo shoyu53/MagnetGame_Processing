@@ -10,14 +10,14 @@ final float poleD=50;
 boolean move=false;
 final int down=3;
 final int right=5;
-public Pole[][] pole=new Pole[down][right]; //SN極判定、奇数の時は赤、偶数の時は青
+public Pole[][] pole=new Pole[down][right]; //SN極判定、奇数の時は赤N、偶数の時は青S
 public float[][] pX=new float[down][right];
 public float[][] pY=new float[down][right];
 public Player player;
-//public float magDis=150;
 public float rot;
-public float magCount;
-public boolean debug=true;  //ここをtrueにしてデバッグモード開始
+
+/*デバッグモード*/
+public boolean debug=true;
 
 void setup() {
   size(1200, 800);
@@ -53,6 +53,6 @@ void draw() {
       pole[i][j].PoleDraw();
     }
   }
-  //磁石描画
+  //プレイヤー描画
   player.magDraw();
 }

@@ -4,28 +4,29 @@ class Player {
   private float magY;
   private float magMoveX;
   private float magMoveY;
-  //private float magCount;
+  private boolean magS;  //falseでN極
 
   Player(float magX, float magY) {
     this.magX=magX;
     this.magY=magY;
     this.magMoveX=magX;
     this.magMoveY=magY;
+    this.magS=true;
   }
 
-  //ここで磁石の動きを司っているよ！
+  //ここでプレイヤーの動きを司っているよ！
   void magDraw() {
     linkMP();
-    moveSet();
+    magSet();
     if (move) {
       move();
     }
 
-    //磁石上
-    fill(255, 0, 0);
+    //プレイヤーN極
+    fill(255, 0, 0, 100);
     rect(-magW/2, -magH, magW, magH);
-    //磁石下
-    fill(0, 0, 255);
+    //プレイヤーS極
+    fill(0, 0, 255, 100);
     rect(-magW/2, 0, magW, magH);
   }
 
@@ -43,15 +44,24 @@ class Player {
     }
   }
 
-  //磁石の動作判定
-  void moveSet() {
-    //クリックした地点に磁石があったらくっつく
+  //プレイヤーの設定
+  void magSet() {
+    if (keyPressed) {
+      if (key=='s') {
+        magS=true;
+        if (debug)println("S極に設定");
+      }
+      if (key=='n') { 
+        magS=false;
+        if (debug)println("N極に設定");
+      }
+    }
+
+    //移動地点登録
     if (mousePressed) {
-      magCount++;
       for (int k=0; k<down; k++) {
         for (int l=0; l<right; l++) {
           if (dis(mouseX, mouseY, pX[k][l], pY[k][l])<=poleD) { 
-            //移動地点登録
             magMoveX=pX[k][l];
             magMoveY=pY[k][l];
             move=true;
@@ -67,7 +77,7 @@ class Player {
     return distance;
   }
 
-  //磁石を動かす
+  //プレイヤーを動かす
   void move() {
     if (magX<magMoveX) {
       magX+=5;
