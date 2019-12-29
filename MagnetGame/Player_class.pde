@@ -2,16 +2,22 @@ class Player {
 
   private float magX;
   private float magY;
+  private float magW=25;
+  private float magH=50;
   private float magMoveX;
   private float magMoveY;
   private boolean magS;  //falseでN極
+  private float unUsed;  //使わない極の色を薄くする
 
-  Player(float magX, float magY) {
+  Player(float magX, float magY, float magW, float magH) {
     this.magX=magX;
     this.magY=magY;
+    this.magW=magW;
+    this.magH=magH;
     this.magMoveX=magX;
     this.magMoveY=magY;
     this.magS=true;
+    this.unUsed=150;
   }
 
   //ここでプレイヤーの動きを司っているよ！
@@ -21,13 +27,21 @@ class Player {
     if (move) {
       move();
     }
-
-    //プレイヤーN極
-    fill(255, 0, 0, 100);
-    rect(-magW/2, -magH, magW, magH);
-    //プレイヤーS極
-    fill(0, 0, 255, 100);
-    rect(-magW/2, 0, magW, magH);
+    if (magS==true) {
+      //プレイヤーN極
+      fill(255, 0, 0,unUsed);
+      rect(-magW/2, -magH, magW, magH);
+      //プレイヤーS極
+      fill(0, 0, 255);
+      rect(-magW/2, 0, magW, magH);
+    } else {
+      //プレイヤーN極
+      fill(255, 0, 0);
+      rect(-magW/2, -magH, magW, magH);
+      //プレイヤーS極
+      fill(0, 0, 255,unUsed);
+      rect(-magW/2, 0, magW, magH);
+    }
   }
 
   //移動地点まで線を引く

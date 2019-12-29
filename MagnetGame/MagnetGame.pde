@@ -23,7 +23,7 @@ void setup() {
   size(1200, 800);
   frameRate(60);
   //プレイヤーは赤青の磁石
-  player=new Player(magX, magY);
+  player=new Player(100,100,25,50);     //(x,y,w,h)
   //障害物設定(ポール)
   for (int i=0; i<down; i++) {
     for (int j=0; j<right; j++) {
