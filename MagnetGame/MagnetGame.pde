@@ -16,8 +16,8 @@ public float[][] pY=new float[down][right];
 public Player player;
 //public float magDis=150;
 public float rot;
-
 public float magCount;
+public boolean debug=true;
 
 void setup() {
   size(1200, 800);
@@ -32,9 +32,10 @@ void setup() {
       pX[i][j]=pole[i][j].getX();
       pY[i][j]=pole[i][j].getY();
       poleX+=250;
-      /*デバッグ*/
-      //print(i, j, "X="+(pX[i][j]=pole[i][j].getX())+" Y=");
-      //println(pY[i][j]=pole[i][j].getY());
+      if(debug){
+      print(i, j, "X="+(pX[i][j]=pole[i][j].getX())+" Y=");
+      println(pY[i][j]=pole[i][j].getY());
+      }
     }
     poleX=50;
     poleY+=200;
