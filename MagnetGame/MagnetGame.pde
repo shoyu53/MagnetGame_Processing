@@ -17,7 +17,7 @@ public Player player;
 //public float magDis=150;
 public float rot;
 public float magCount;
-public boolean debug=true;
+public boolean debug=true;  //ここをtrueにしてデバッグモード開始
 
 void setup() {
   size(1200, 800);
