@@ -8,6 +8,8 @@ class Player {
   private float magMoveY;
   private boolean magS;  //falseでN極
   private float unUsed;  //使わない極の色を薄くする
+  private float theta;
+  private float rad;
 
   Player(float magX, float magY, float magW, float magH) {
     this.magX=magX;
@@ -29,7 +31,7 @@ class Player {
     }
     if (magS==true) {
       //プレイヤーN極
-      fill(255, 0, 0,unUsed);
+      fill(255, 0, 0, unUsed);
       rect(-magW/2, -magH, magW, magH);
       //プレイヤーS極
       fill(0, 0, 255);
@@ -39,7 +41,7 @@ class Player {
       fill(255, 0, 0);
       rect(-magW/2, -magH, magW, magH);
       //プレイヤーS極
-      fill(0, 0, 255,unUsed);
+      fill(0, 0, 255, unUsed);
       rect(-magW/2, 0, magW, magH);
     }
   }
@@ -93,19 +95,27 @@ class Player {
 
   //プレイヤーを動かす
   void move() {
-    if (magX<magMoveX) {
-      magX+=5;
-    } else if (magMoveX<magX) {
-      magX-=5;
+    if (magS==false) {
+      if (magX<magMoveX) {
+        magX+=5;
+      } else if (magMoveX<magX) {
+        magX-=5;
+      }
+      if (magY<magMoveY) {
+        magY+=5;
+      } else if (magMoveY<magY) {
+        magY-=5;
+      }
+      if ((magX==magMoveX)&&(magY==magMoveY)) {
+        move=false;
+        if (debug)println("X="+magX+" Y="+magY+"へ移動完了");
+      }
     }
-    if (magY<magMoveY) {
-      magY+=5;
-    } else if (magMoveY<magY) {
-      magY-=5;
-    }
-    if ((magX==magMoveX)&&(magY==magMoveY)) {
-      move=false;
-      if (debug)println("X="+magX+" Y="+magY+"へ移動完了");
+    if (magS==true) {
+      rad=radians(theta);
+      magX=magMoveX+dis(magX,magY,magMoveX,magMoveY)*cos(rad);
+      magY=magMoveY-dis(magX,magY,magMoveX,magMoveY)*sin(rad);
+      theta+=1.5;
     }
   }
 }
