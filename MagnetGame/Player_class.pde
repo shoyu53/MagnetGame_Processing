@@ -95,18 +95,19 @@ class Player {
 
   //プレイヤーを動かす
   void move() {
+    float variation=6;        //移動距離(可読性のためにmovementではなくvariationにした)
     if (magS==false) {
-      if (magX<magMoveX) {
-        magX+=5;
+      if (magX<magMoveX-variation) {
+        magX+=variation;
       } else if (magMoveX<magX) {
-        magX-=5;
+        magX-=variation;
       }
-      if (magY<magMoveY) {
-        magY+=5;
+      if (magY<magMoveY-variation) {
+        magY+=variation;
       } else if (magMoveY<magY) {
-        magY-=5;
+        magY-=variation;
       }
-      if ((magX==magMoveX)&&(magY==magMoveY)) {
+      if (dis(magX,magY,magMoveX,magMoveY)<=poleD/2) {
         move=false;
         if (debug)println("X="+magX+" Y="+magY+"へ移動完了");
       }
