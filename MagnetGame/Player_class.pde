@@ -9,7 +9,8 @@ class Player {
   private boolean magS;  //falseでN極
   private float unUsed;  //使わない極の色を薄くする
   private float rad;
-  private float centerX, centerY;
+  public float rot;
+  private float leave=0.5;
 
   Player(float magX, float magY, float magW, float magH) {
     this.magX=magX;
@@ -26,6 +27,8 @@ class Player {
   void magDraw() {
     linkMP();
     magSet();
+    //異極だとプレイヤーがポールに引きつけられる
+    //同極だとプレイヤーがポールの周りを公転し徐々に離れていく
     if (move) {
       move();
     }
@@ -81,8 +84,27 @@ class Player {
           if (dis(mouseX, mouseY, pX[k][l], pY[k][l])<=poleD) { 
             magMoveX=pX[k][l];
             magMoveY=pY[k][l];
-            //rad=atan2(magX, magY);
-            println(rad);
+
+            /*クリックされたプレイヤーが公転を開始するたびに公転の中心のポールが毎回変わるため、　　　*/
+            /*そのままrad=0とすると、不自然な位置から回転を初めてしまう(瞬間移動してしまう）  　　　*/
+            /*それを解決するためにクリックされたポールから見た、公転開始直前のプレイヤーの角度を　　　*/
+            /*求めたかった。三角関数を使おうとしたががうまくいかなかったので(座標変換の影響？) 　　　*/
+            /*下記の方法を採用した(もっといい方法があったらご教授ください)   　　　 　　     　　　*/
+
+            //プレイヤーが公転するポールの位置が決まったら、プレイヤーの一周分の公転座標を取得
+            //それと公転開始直前のプレイヤー座標との距離を比較し、一番距離が短い時の角度を登録
+            //これによって、プレイヤーがワープすることなく自然に公転を始めることができる
+            float distance_Min=1000;
+            for (int inspect_Rad=0; inspect_Rad<20; inspect_Rad++) {
+              float insX=magMoveX+(dis(magX, magY, magMoveX, magMoveY)+leave)*cos(inspect_Rad);
+              float insY=magMoveY-(dis(magX, magY, magMoveX, magMoveY)+leave)*sin(inspect_Rad);
+
+              if (dis(magX, magY, insX, insY)<distance_Min) {
+                distance_Min=dis(magX, magY, insX, insY);
+                rad=inspect_Rad;
+              }
+            }
+            if(debug)println(rad+"から公転開始");
             move=true;
           }
         }
@@ -117,7 +139,6 @@ class Player {
     }
     //同極時にプレイヤーを回転&遠ざける
     if (magS==false) {      
-      float leave=0.5;
       magX=magMoveX+(dis(magX, magY, magMoveX, magMoveY)+leave)*cos(rad);
       magY=magMoveY-(dis(magX, magY, magMoveX, magMoveY)+leave)*sin(rad);
       rad+=radians(1.5);
