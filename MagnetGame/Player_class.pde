@@ -6,6 +6,7 @@ class Player {
   private float magH=50;
   private float magMoveX;
   private float magMoveY;
+  private boolean hitPoleS;
   private boolean magS;  //falseでN極
   private float unUsed;  //使わない極の色を薄くする
   private float rad;
@@ -60,17 +61,17 @@ class Player {
   void magSet() {
     if (magS==true) {
       //プレイヤーN極
-      fill(255, 0, 0);
-      rect(-magW/2, -magH, magW, magH);
-      //プレイヤーS極
-      fill(0, 0, 255, unUsed);
-      rect(-magW/2, 0, magW, magH);
-    } else {
-      //プレイヤーN極
-      fill(255, 0, 0, unUsed);
+      fill(100, 0, 0, unUsed);
       rect(-magW/2, -magH, magW, magH);
       //プレイヤーS極
       fill(0, 0, 255);
+      rect(-magW/2, 0, magW, magH);
+    } else {
+      //プレイヤーN極
+      fill(255, 0, 0);
+      rect(-magW/2, -magH, magW, magH);
+      //プレイヤーS極
+      fill(0, 0, 100, unUsed);
       rect(-magW/2, 0, magW, magH);
     }
 
@@ -92,6 +93,7 @@ class Player {
           if (dis(mouseX, mouseY, pX[k][l], pY[k][l])<=poleD) { 
             magMoveX=pX[k][l];
             magMoveY=pY[k][l];
+            hitPoleS=poleS[k][l];
 
             //公転時の振り子設定
             if (magX<=magMoveX) {
@@ -136,10 +138,11 @@ class Player {
   }
 
   void move() {
-    //異極時にプレイヤーをポールにくっつける
     final float variation=6;        //移動距離(可読性のためにmovementではなくvariationにした)
     final int reduceSwing=7;        //振り子の揺れる時間減少
-    if (magS==true) {
+
+    //異極時にプレイヤーをポールにくっつける
+    if (magS!=hitPoleS) {
       if (magX<magMoveX-variation) {
         magX+=variation;
       } else if (magMoveX<magX) {
@@ -157,7 +160,7 @@ class Player {
     }
 
     //同極時にプレイヤーを振り子のように公転&遠ざける
-    if (magS==false) {
+    if (magS==hitPoleS) {
       magX=magMoveX+(dis(magX, magY, magMoveX, magMoveY)+leave)*cos(rad);
       magY=magMoveY-(dis(magX, magY, magMoveX, magMoveY)+leave)*sin(rad);
       //振り子のように公転させる

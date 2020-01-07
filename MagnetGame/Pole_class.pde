@@ -2,10 +2,12 @@ class Pole {
 
   private float pX;
   private float pY;
+  private boolean poleS;
 
-  Pole(float pX, float pY) {
+  Pole(float pX, float pY, boolean poleS) {
     this.pX=pX;
     this.pY=pY;
+    this.poleS=poleS;
   }
 
   float getX() {
@@ -15,10 +17,17 @@ class Pole {
   float getY() {
     return pY;
   }
+  boolean getPoleS(){
+    return poleS;
+  }
 
 
   void PoleDraw() {
-    fill(0, 0, 255);
+    if (poleS==true) {
+      fill(0, 0, 255);
+    } else {
+      fill(255, 0, 0);
+    }
     ellipse(pX, pY, poleD, poleD);
   }
 }

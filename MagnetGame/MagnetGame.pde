@@ -13,6 +13,7 @@ final int right=5;
 public Pole[][] pole=new Pole[down][right]; //SN極判定、奇数の時は赤N、偶数の時は青S
 public float[][] pX=new float[down][right];
 public float[][] pY=new float[down][right];
+public boolean[][] poleS=new boolean[down][right];
 public Player player;
 
 /*デバッグモード*/
@@ -26,10 +27,14 @@ void setup() {
   //障害物設定(ポール)
   for (int i=0; i<down; i++) {
     for (int j=0; j<right; j++) {
-      fill(0, 0, 255);
-      pole[i][j]=new Pole(poleX, poleY);
+      if (j%2==0) {
+        pole[i][j]=new Pole(poleX, poleY, true); //x,y,SNのbool
+      } else {
+        pole[i][j]=new Pole(poleX, poleY, false);
+      }
       pX[i][j]=pole[i][j].getX();
       pY[i][j]=pole[i][j].getY();
+      poleS[i][j]=pole[i][j].getPoleS();
       poleX+=260;
       if (debug) {
         print(i, j, "X="+(pX[i][j]=pole[i][j].getX()));
@@ -38,7 +43,7 @@ void setup() {
     }
     poleX=70;
     poleY+=250;
-    if(i==0){
+    if (i==0) {
       poleX=200;
     }
   }
