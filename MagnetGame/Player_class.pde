@@ -138,7 +138,7 @@ class Player {
   void move() {
     //異極時にプレイヤーをポールにくっつける
     final float variation=6;        //移動距離(可読性のためにmovementではなくvariationにした)
-    final int reduceSwing=10;        //振り子の揺れる時間減少
+    final int reduceSwing=7;        //振り子の揺れる時間減少
     if (magS==true) {
       if (magX<magMoveX-variation) {
         magX+=variation;
@@ -163,9 +163,9 @@ class Player {
       //振り子のように公転させる
       if (0<pendulum_MaxTime) {
         if (clockwise==true) {
-          rad+=radians(1.5);
+          rad+=radians(1.2);
         } else {
-          rad-=radians(1.5);
+          rad-=radians(1.2);
         }
       }
 

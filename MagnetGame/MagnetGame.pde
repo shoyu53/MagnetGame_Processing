@@ -2,12 +2,12 @@ public float magX=100;
 public float magY=100;
 public float magW=25;
 public float magH=50;
-public float poleX=50;
-public float poleY=100;
+public float poleX=70;
+public float poleY=150;
 public float magMoveX;
 public float magMoveY;
 final float poleD=50;
-boolean move=false;
+public boolean move=false;
 final int down=3;
 final int right=5;
 public Pole[][] pole=new Pole[down][right]; //SN極判定、奇数の時は赤N、偶数の時は青S
@@ -30,14 +30,17 @@ void setup() {
       pole[i][j]=new Pole(poleX, poleY);
       pX[i][j]=pole[i][j].getX();
       pY[i][j]=pole[i][j].getY();
-      poleX+=250;
+      poleX+=260;
       if (debug) {
         print(i, j, "X="+(pX[i][j]=pole[i][j].getX()));
         println(" Y="+(pY[i][j]=pole[i][j].getY()));
       }
     }
-    poleX=50;
-    poleY+=200;
+    poleX=70;
+    poleY+=250;
+    if(i==0){
+      poleX=200;
+    }
   }
   println("障害物の初期設定完了");
 }
