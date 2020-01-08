@@ -31,6 +31,12 @@ class Player {
     this.clockwise=true;
     this.countReset=true;
   }
+  float get_magX(){
+    return magX;
+  }
+  float get_magY(){
+    return magY;
+  }
 
   //ここでプレイヤーの動きを司っているよ！
   void magDraw() {
@@ -123,7 +129,7 @@ class Player {
                 rad=inspect_Rad;
               }
             }
-            if (debug)println(rad+"から公転開始");
+            if (debug)println("角度"+rad+"から公転開始");
             move=true;
           }
         }
@@ -131,11 +137,7 @@ class Player {
     }
   }
 
-  //二点間の距離を計算
-  float dis(float aX, float aY, float bX, float bY) {
-    float distance=sqrt((aX-bX)*(aX-bX)+(aY-bY)*(aY-bY));
-    return distance;
-  }
+
 
   void move() {
     final float variation=6;        //移動距離(可読性のためにmovementではなくvariationにした)

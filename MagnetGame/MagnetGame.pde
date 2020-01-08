@@ -15,6 +15,8 @@ public float[][] pX=new float[down][right];
 public float[][] pY=new float[down][right];
 public boolean[][] poleS=new boolean[down][right];
 public Player player;
+public int sandN=100;
+public Sand[] sand=new Sand[sandN];
 
 /*デバッグモード*/
 public boolean debug=true;
@@ -22,9 +24,22 @@ public boolean debug=true;
 void setup() {
   size(1200, 800);
   frameRate(60);
+
+
+  //集めるとスコアが上がる砂鉄の設定
+  for (int i=0; i<sandN; i++) {
+    //x,y,d,r,g,b
+    sand[i]=new Sand(random(10, 1190), random(100, 790), random(6, 13), random(100, 256), random(100, 256), random(100, 200));
+  }
+  if (debug) {
+    println(sandN+"個の砂鉄の設置完了");
+    println();
+  }
+
   //プレイヤーは赤青の磁石
   player=new Player(100, 100, 25, 50);     //(x,y,w,h)
   //障害物設定(ポール)
+  if(debug){  println("障害物の初期設定開始");}
   for (int i=0; i<down; i++) {
     for (int j=0; j<right; j++) {
       if (j%2==0) {
@@ -47,7 +62,9 @@ void setup() {
       poleX=200;
     }
   }
-  println("障害物の初期設定完了");
+  if (debug) {
+    println("障害物の初期設定完了");
+  }
 }
 
 void draw() {
@@ -59,6 +76,17 @@ void draw() {
       pole[i][j].PoleDraw();
     }
   }
+
+  //砂鉄描画
+  for (int i=0; i<100; i++) {
+    sand[i].sandDraw();
+  }
   //プレイヤー描画
   player.magDraw();
+}
+
+//二点間の距離を計算
+float dis(float aX, float aY, float bX, float bY) {
+  float distance=sqrt((aX-bX)*(aX-bX)+(aY-bY)*(aY-bY));
+  return distance;
 }

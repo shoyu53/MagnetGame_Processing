@@ -1,0 +1,7 @@
+class Score{
+  
+  float score;
+  
+  
+  
+}

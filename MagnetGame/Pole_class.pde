@@ -1,7 +1,6 @@
 class Pole {
 
-  private float pX;
-  private float pY;
+  private float pX,pY;
   private boolean poleS;
 
   Pole(float pX, float pY, boolean poleS) {
