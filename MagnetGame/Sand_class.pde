@@ -38,8 +38,8 @@ class Sand {
   }
 
   void collider() {
-    pX=player.get_magX();
-    pY=player.get_magY();
+    pX=player.getMagX();
+    pY=player.getMagY();
     if (dis(pX, pY, sX, sY)<100) {
       collision=true;
     }else{
@@ -48,8 +48,8 @@ class Sand {
   }
 
   void sandMove() {
-    pX=player.get_magX();
-    pY=player.get_magY();
+    pX=player.getMagX();
+    pY=player.getMagY();
     if (collision==true) {
       float variation=8;
       if (sX<pX) {

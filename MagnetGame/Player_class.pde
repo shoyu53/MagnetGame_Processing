@@ -31,10 +31,10 @@ class Player {
     this.clockwise=true;
     this.countReset=true;
   }
-  float get_magX() {
+  float getMagX() {
     return magX;
   }
-  float get_magY() {
+  float getMagY() {
     return magY;
   }
 
