@@ -44,7 +44,7 @@ class Sand {
     pX=player.get_magX();
     pY=player.get_magY();
     if (collision==true) {
-      float variation=8;
+      float variation=8.5;
       if (sX<pX) {
         sX+=variation;
       } else if (pX<sX) {
