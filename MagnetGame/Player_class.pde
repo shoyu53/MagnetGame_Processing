@@ -31,10 +31,10 @@ class Player {
     this.clockwise=true;
     this.countReset=true;
   }
-  float get_magX(){
+  float get_magX() {
     return magX;
   }
-  float get_magY(){
+  float get_magY() {
     return magY;
   }
 
@@ -94,12 +94,13 @@ class Player {
 
     //移動地点登録
     if (mousePressed) {
-      for (int k=0; k<down; k++) {
-        for (int l=0; l<right; l++) {
-          if (dis(mouseX, mouseY, pX[k][l], pY[k][l])<=poleD) { 
-            magMoveX=pX[k][l];
-            magMoveY=pY[k][l];
-            hitPoleS=poleS[k][l];
+      for (int i=0; i<down; i++) {
+        for (int j=0; j<right; j++) {
+          if (dis(mouseX, mouseY, pX[i][j], pY[i][j])<=poleD) { 
+            magMoveX=pole[i][j].getX();
+            magMoveY=pole[i][j].getY();
+            hitPoleS=pole[i][j].getPoleS();
+            pole[i][j].setHitPole(true);   //今のところポール中心のSN表示に使っている
 
             //公転時の振り子設定
             if (magX<=magMoveX) {
@@ -132,12 +133,14 @@ class Player {
             if (debug)println("角度"+rad+"から公転開始");
             move=true;
           }
+          else{
+            pole[i][j].setHitPole(false);
+          }
         }
       }
     }
   }
-
-
+  
 
   void move() {
     final float variation=6;        //移動距離(可読性のためにmovementではなくvariationにした)
@@ -168,9 +171,9 @@ class Player {
       //振り子のように公転させる
       if (0<pendulum_MaxTime) {
         if (clockwise==true) {
-          rad+=radians(1.2);
+          rad+=radians(1);
         } else {
-          rad-=radians(1.2);
+          rad-=radians(1);
         }
       }
 

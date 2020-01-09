@@ -6,9 +6,10 @@ class Sand {
   private float sD;
   private float r, g, b;
   private boolean collision;
-  private boolean possesion;
+  private boolean active;
   private float pX;
   private float pY;
+  private boolean addOnceScore;
 
   Sand(float sX, float sY, float sD, float r, float g, float b) {    //x,y,d,
     this.sX=sX;
@@ -18,17 +19,21 @@ class Sand {
     this.g=g;
     this.b=b;
     this.collision=false;
-    this.possesion=false;
+    this.active=true;
+    this.addOnceScore=true;
   }
 
   void sandDraw() {
 
-    if (possesion==false) {
+    if (active==true) {
       noStroke();
       fill(r, g, b);
       ellipse(sX, sY, sD, sD);
       collider();
       sandMove();
+    }else if(addOnceScore){
+      score.addScore();
+      addOnceScore=false;
     }
   }
 
@@ -37,6 +42,8 @@ class Sand {
     pY=player.get_magY();
     if (dis(pX, pY, sX, sY)<100) {
       collision=true;
+    }else{
+      collision=false;
     }
   }
 
@@ -44,7 +51,7 @@ class Sand {
     pX=player.get_magX();
     pY=player.get_magY();
     if (collision==true) {
-      float variation=8.5;
+      float variation=8;
       if (sX<pX) {
         sX+=variation;
       } else if (pX<sX) {
@@ -56,7 +63,7 @@ class Sand {
         sY-=variation;
       }
       if(dis(pX, pY, sX, sY)<10){
-        possesion=true;
+        active=false;
       }
     }
   }
