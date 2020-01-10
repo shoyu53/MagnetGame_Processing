@@ -2,12 +2,13 @@ class Score {
 
   private int sumScore;
   private int point;
-  private int bonas;
+  private int nomalPoint;
+  private int bonasPoint;
   private boolean[] scoreEffect=new boolean[sandN];
   //砂鉄獲得エフェクトを表示させた回数を記録
   private int effectNum;
   //砂鉄獲得エフェクトを表示させる時間
-  private int[] countDown= new int[sandN];
+  private int[] countDown_EffectTime= new int[sandN];
   //砂鉄獲得時のプレイヤーの位置を記録
   private float[] pX=new float[sandN];
   private float[] pY=new float[sandN];
@@ -15,22 +16,34 @@ class Score {
   //float pY=player.getMagY();
 
   //もちろん最初は0点スタート
-  Score() {
+  Score(int nomalPoint,int bonasPoint) {
     this.sumScore=0;
-    this.point=100;
-    this.bonas=50;
+    this.nomalPoint=nomalPoint;
+    this.point=this.nomalPoint;
+    this.bonasPoint=bonasPoint;
     for (int i=0; i<scoreEffect.length; i++) {
       this.scoreEffect[i]=false;
-      this.countDown[i]=30;   //60fだからcountdown[i]--;のときは30/60=0.5秒間のカウントダウン
+      this.countDown_EffectTime[i]=90;   
+      //60fだからcountDown_EffectTime[i]=90のときは90/60=1.5秒間のカウントダウン
       this.pX[i]=0;
       this.pY[i]=0;
     }
     this.effectNum=0;
   }
+  
+  int getsumScore(){
+    return sumScore;
+  }
 
 
   void addScore() {
+    
+    //5秒たったらSCOREにボーナス追加
+    if (5<(time.getTimeCount()/60)) {
+      point=nomalPoint+bonasPoint;
+    }
     sumScore+=point;
+    
     //砂鉄を獲得してからカウントダウンが0になるまでエフェクトを表示させる
     scoreEffect[effectNum]=true;
     pX[effectNum]=player.getMagX();
@@ -47,17 +60,17 @@ class Score {
   void scoreDraw() {
     fill(0);
     textSize(45);
-    text(sumScore, 1030, 60);
+    text("SCORE : "+sumScore, 850, 60);
     effectDraw();
   }
 
   void effectDraw() {
     for (int i=0; i<scoreEffect.length; i++) {
       if (scoreEffect[i]==true) {
-        countDown[i]--;
-        if (0<countDown[i]) {
+        countDown_EffectTime[i]--;
+        if (0<countDown_EffectTime[i]) {
           //エフェクト表示
-          fill(255, 0, 0);
+          fill(255, 50, 0, countDown_EffectTime[i]*(255/90));
           textSize(15);
           text("+"+point, pX[i], pY[i]);
         } else {

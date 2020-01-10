@@ -67,17 +67,17 @@ class Player {
   void magSet() {
     if (magS==true) {
       //プレイヤーN極
-      fill(100, 0, 0, unUsed);
+      fill(200, 50, 0, unUsed);
       rect(-magW/2, -magH, magW, magH);
       //プレイヤーS極
-      fill(0, 0, 255);
+      fill(0, 50, 255);
       rect(-magW/2, 0, magW, magH);
     } else {
       //プレイヤーN極
       fill(255, 0, 0);
       rect(-magW/2, -magH, magW, magH);
       //プレイヤーS極
-      fill(0, 0, 100, unUsed);
+      fill(0, 50, 100, unUsed);
       rect(-magW/2, 0, magW, magH);
     }
 
@@ -143,7 +143,7 @@ class Player {
   
 
   void move() {
-    final float variation=6;        //移動距離(可読性のためにmovementではなくvariationにした)
+    final float variation=8;        //同極時の移動距離(可読性のためにmovementではなくvariationにした)
     final int reduceSwing=7;        //振り子の揺れる時間減少
 
     //異極時にプレイヤーをポールにくっつける
@@ -171,9 +171,9 @@ class Player {
       //振り子のように公転させる
       if (0<pendulum_MaxTime) {
         if (clockwise==true) {
-          rad+=radians(1);
+          rad+=radians(1.2);
         } else {
-          rad-=radians(1);
+          rad-=radians(1.2);
         }
       }
 

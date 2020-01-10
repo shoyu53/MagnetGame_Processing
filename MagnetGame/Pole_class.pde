@@ -28,7 +28,7 @@ class Pole {
 
   void poleDraw() {
     if (poleS==true) {
-      fill(0, 0, 255);
+      fill(0, 50, 255);
     } else {
       fill(255, 0, 0);
     }
