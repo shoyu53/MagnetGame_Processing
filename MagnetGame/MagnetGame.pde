@@ -5,6 +5,7 @@
 //磁石を動かし、砂鉄を集めて得点を獲得！
 //制限時間以内に砂鉄をたくさん集めてスコアハイスコアを目指そう！
 //制限時間10秒、砂鉄100個、砂鉄1個で100pt
+//13000pt<=Sランク,10000<=Aランク,7000<=Bランク,5000<=Cランク,その他 = Dランク
 
 /*操作方法*/
 //画面上のポールをクリックすると磁石が動きます。
@@ -13,7 +14,7 @@
 //(同じ極だと引きつけあい、　極が違うと反発し合いながら振り子のような動きをします)
 //キーボードのSキー,Nキーを押すと磁石のS極,N極を切り替えられることができます！
 
-/*隠し要素*/
+/*細かい要素*/
 //スコアが5000ptを超えると制限時間が5秒プラスされます
 //ゲーム開始から5秒が経過すると砂鉄獲得時の得点が2倍(200pt)になります
 
@@ -45,6 +46,7 @@ public Score score;
 
 public Time time;
 
+public Result  result;
 
 /*デバッグモード*/
 public boolean debug=true;
@@ -58,7 +60,7 @@ void setup() {
     sand[i]=new Sand(random(10, 1190), random(100, 790), random(6, 13), random(100, 256), random(100, 256), random(100, 200));
   }
 
-  score=new Score(100,100);  //nomalPoint,bonasPoint
+  score=new Score(100, 100);  //nomalPoint,bonasPoint
 
   if (debug) {
     println(sandN+"個の砂鉄の設置完了");
@@ -97,6 +99,7 @@ void setup() {
 
   //制限時間設定
   time=new Time(10);
+  result=new Result();
 }
 
 void draw() {
@@ -114,13 +117,22 @@ void draw() {
     sand[i].sandDraw();
   }
   //スコア描画
-  score.scoreDraw();
+  if (result.getGameover()==false) {
+    score.scoreDraw();
+  }
 
   //制限時間描画
   time.timeDraw();
 
-  //プレイヤー描画
-  player.magDraw();
+  //リザルト画面描画
+  if (result.getGameover()==true) {
+    result.resultDraw();
+  }
+
+  if (result.getGameover()==false) {
+    //プレイヤー描画
+    player.magDraw();
+  }
 }
 
 //二点間の距離を計算

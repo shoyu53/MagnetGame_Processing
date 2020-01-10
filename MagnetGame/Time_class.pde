@@ -19,28 +19,35 @@ class Time {
   int getTimeCount() {
     return timeCount;
   }
+  int getRemaingTime() {
+    return remainingTime;
+  }
 
   void timeDraw() {
     addTimeLimit();
     fill(0);
     textSize(68);
-    if(remainingTime<=3){
-      fill(255,50,0);
+    if (remainingTime<=3) {
+      fill(255, 50, 0);
     }
-    text(remainingTime, 550, 75);
+    text(remainingTime, 560, 75);
     timeCount++;
     //制限時間を減らしていく
     if (remainingTime>0) {
       remainingTime=timeLimit-(timeCount/60);
+    }else
+    {
+      result.setGameover(true);
     }
     //時間追加時のエッフェクト
-    if(notAddTimeLimit==false){
+    if (notAddTimeLimit==false) {
       addTimeEffectDraw();
       addTimeEffect--;
       timeEffectY-=0.5;
     }
   }
-  
+
+  //スコアが5000ptを超えたら制限時間を5秒追加
   void addTimeLimit() {
     if (notAddTimeLimit==true) {
       if (5000<score.sumScore) {
@@ -49,10 +56,10 @@ class Time {
       }
     }
   }
-  
-  void addTimeEffectDraw(){
-    fill(255,0,0,addTimeEffect*(255/90));
+  //制限時間追加時のエフェクト描画
+  void addTimeEffectDraw() {
+    fill(255, 0, 0, addTimeEffect*(255/90));
     textSize(68);
-    text("+5",600,75+timeEffectY);
+    text("+5", 600, 75+timeEffectY);
   }
 }
