@@ -12,11 +12,12 @@ class Score {
   //砂鉄獲得時のプレイヤーの位置を記録
   private float[] pX=new float[sandN];
   private float[] pY=new float[sandN];
-  //float pX=player.getMagX();
-  //float pY=player.getMagY();
+  //スコアアップ中のテキスト表示エフェクト用
+  private float bonasEffect;
+  private boolean bonasActive;
 
   //もちろん最初は0点スタート
-  Score(int nomalPoint,int bonasPoint) {
+  Score(int nomalPoint, int bonasPoint) {
     this.sumScore=0;
     this.nomalPoint=nomalPoint;
     this.point=this.nomalPoint;
@@ -29,21 +30,23 @@ class Score {
       this.pY[i]=0;
     }
     this.effectNum=0;
+    this.bonasEffect=0;
+    this.bonasActive=true;
   }
-  
-  int getsumScore(){
+
+  int getsumScore() {
     return sumScore;
   }
 
 
   void addScore() {
-    
+
     //5秒たったらSCOREにボーナス追加
     if (5<(time.getTimeCount()/60)) {
       point=nomalPoint+bonasPoint;
     }
     sumScore+=point;
-    
+
     //砂鉄を獲得してからカウントダウンが0になるまでエフェクトを表示させる
     scoreEffect[effectNum]=true;
     pX[effectNum]=player.getMagX();
@@ -76,6 +79,27 @@ class Score {
         } else {
           //カウントダウンが0になったらエフェクトの表示を止める
           scoreEffect[i]=false;
+        }
+      }
+    }
+
+    //スコアアップ中にテキスト表示
+    if (point==nomalPoint+bonasPoint) {
+      fill(255, 10, 0, bonasEffect);
+      textSize(45);
+      text("SCORE UP", 30, 55);
+      if (bonasActive==true) {
+        if (bonasEffect<=245) {
+          bonasEffect+=5;
+        } else {
+          bonasActive=false;
+        }
+      }
+      if (bonasActive==false) {
+        if (10<=bonasEffect) {
+          bonasEffect-=5;
+        } else {
+          bonasActive=true;
         }
       }
     }
