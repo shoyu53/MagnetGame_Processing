@@ -40,7 +40,7 @@ class Sand {
   void collider() {
     pX=player.getMagX();
     pY=player.getMagY();
-    if (dis(pX, pY, sX, sY)<100) {
+    if (dis(pX, pY, sX, sY)<110) {
       collision=true;
     }else{
       collision=false;

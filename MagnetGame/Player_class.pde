@@ -27,7 +27,7 @@ class Player {
     this.magMoveY=magY;
     this.magS=true;
     this.unUsed=150;
-    this.leave=0.5;
+    this.leave=0.7;
     this.clockwise=true;
     this.countReset=true;
   }
@@ -171,9 +171,9 @@ class Player {
       //振り子のように公転させる
       if (0<pendulum_MaxTime) {
         if (clockwise==true) {
-          rad+=radians(1.2);
+          rad+=radians(1);
         } else {
-          rad-=radians(1.2);
+          rad-=radians(1);
         }
       }
 

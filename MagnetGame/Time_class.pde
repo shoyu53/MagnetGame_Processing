@@ -1,11 +1,11 @@
 class Time {
 
-  private int timeLimit;         //制限時間
-  private int timeCount;         //フレームカウント
-  private int remainingTime;     //残り時間
-  private boolean notAddTimeLimit;
-  private int addTimeEffect;
-  private float timeEffectY;
+  private int timeLimit;              //制限時間
+  private int timeCount;              //フレームカウント
+  private int remainingTime;          //残り時間
+  private boolean notAddTimeLimit;    //一度だけ時間追加をするためのbool変数
+  private int addTimeEffect;          //時間追加時のエフェクトを表示させる時間
+  private float timeEffectY;          //時間追加時のエフェクトの位置調整 
 
   Time(int timeLimit) {
     this.timeLimit=timeLimit;
@@ -24,6 +24,9 @@ class Time {
     addTimeLimit();
     fill(0);
     textSize(68);
+    if(remainingTime<=3){
+      fill(255,50,0);
+    }
     text(remainingTime, 550, 75);
     timeCount++;
     //制限時間を減らしていく

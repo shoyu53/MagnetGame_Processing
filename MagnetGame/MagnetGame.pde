@@ -66,7 +66,7 @@ void setup() {
   }
 
   //プレイヤーは赤青の磁石
-  player=new Player(100, 100, 25, 50);     //(x,y,w,h)
+  player=new Player(550, 400, 25, 50);     //(x,y,w,h)
 
   //障害物設定(ポール)
   if (debug) {  

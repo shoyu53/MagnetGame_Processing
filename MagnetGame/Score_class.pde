@@ -23,8 +23,8 @@ class Score {
     this.bonasPoint=bonasPoint;
     for (int i=0; i<scoreEffect.length; i++) {
       this.scoreEffect[i]=false;
-      this.countDown_EffectTime[i]=90;   
-      //60fだからcountDown_EffectTime[i]=90のときは90/60=1.5秒間のカウントダウン
+      this.countDown_EffectTime[i]=60;   
+      //60fだからcountDown_EffectTime[i]=90のときは60/60=1秒間のカウントダウン
       this.pX[i]=0;
       this.pY[i]=0;
     }
@@ -70,8 +70,8 @@ class Score {
         countDown_EffectTime[i]--;
         if (0<countDown_EffectTime[i]) {
           //エフェクト表示
-          fill(255, 50, 0, countDown_EffectTime[i]*(255/90));
-          textSize(15);
+          fill(255, 50, 0, countDown_EffectTime[i]*(255/60));
+          textSize(18);
           text("+"+point, pX[i], pY[i]);
         } else {
           //カウントダウンが0になったらエフェクトの表示を止める
