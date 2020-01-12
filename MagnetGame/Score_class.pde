@@ -42,7 +42,7 @@ class Score {
   void addScore() {
 
     //5秒たったらSCOREにボーナス追加
-    if (5<(time.getTimeCount()/60)) {
+    if (5<=(time.getTimeCount()/60)) {
       point=nomalPoint+bonasPoint;
     }
     sumScore+=point;
