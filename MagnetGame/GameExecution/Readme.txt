@@ -1,4 +1,4 @@
-# MagnetGame_Processing
+Read me
 
 /*ゲーム名*/
 MagneTen
