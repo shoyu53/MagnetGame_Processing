@@ -22,7 +22,7 @@ class Result {
   void resultDraw() {
     fill(255, 0, 0);
     textSize(80);
-    text("G A M E", 300, 300);
+    text("G A M E", 270, 300);
     fill(0, 0, 255);
     text("O V E R", 630, 300);
     fill(0);
