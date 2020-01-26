@@ -20,12 +20,6 @@
 
 /*制作: 醤油 (Twitter 醤油@53kcal4) */
 
-
-public float magX=100;
-public float magY=100;
-public float magW=25;
-public float magH=50;
-
 public float poleX=70;
 public float poleY=150;
 final float poleD=50;
