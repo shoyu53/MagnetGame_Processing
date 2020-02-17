@@ -1,4 +1,4 @@
-//adjfkwaegwbcifkwyrbdfekwtrg
+
 
 /*ゲーム名: MagneTen */
 
