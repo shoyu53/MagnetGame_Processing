@@ -1,5 +1,8 @@
 # MagnetGame_Processing
 
+2019年
+学部1年次制作
+
 /*ゲーム名*/
 MagneTen
 
